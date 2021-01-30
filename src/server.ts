@@ -12,6 +12,7 @@ declare module 'express-session' {
   }
 }
 
+// create connection and start the appp
 createConnection(sqliteConnectionOptions)
   /*eslint-disable @typescript-eslint/no-unused-vars */
   .then((connection) => {
