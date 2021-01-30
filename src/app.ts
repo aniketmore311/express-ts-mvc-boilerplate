@@ -3,7 +3,9 @@ import { IBaseController } from './types/index';
 import session, { MemoryStore } from 'express-session';
 import { env } from './config/env.config';
 import express from 'express';
+import { Request, Response } from 'express';
 import morgan from 'morgan';
+import { logError, errorTransformer, SiteErrorHandler } from './middleware';
 
 @injectable()
 @singleton()
@@ -16,6 +18,8 @@ export class App {
     this.app = express();
     this.initializeMiddleware();
     this.initializeControllers();
+    this.initializeNotFound();
+    this.initializeErrorHandler();
   }
 
   public initializeMiddleware(): void {
@@ -50,6 +54,16 @@ export class App {
         ...controllerInstance.middlewareAfter
       );
     });
+  }
+
+  public initializeNotFound(): void {
+    this.app.use((req: Request, res: Response) => res.render('pages/404'));
+  }
+
+  public initializeErrorHandler(): void {
+    this.app.use(logError);
+    this.app.use(errorTransformer);
+    this.app.use(SiteErrorHandler);
   }
 
   public listen(): void {
