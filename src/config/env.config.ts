@@ -6,4 +6,3 @@ export const env = {
   ROOT_DIR: path.join(__dirname + '/../..'),
   SESS_KEY: process.env.SESS_KEY || 'secretkey',
 };
-console.log('root: ' + env.ROOT_DIR);
