@@ -1,5 +1,6 @@
 import { container, injectable, InjectionToken, singleton } from 'tsyringe';
 import { IBaseController } from './types/BaseController.interface';
+import { env } from './config/env.config';
 import express from 'express';
 import morgan from 'morgan';
 
@@ -15,7 +16,7 @@ export class App {
     this.initializeControllers();
   }
   public initializeMiddleware(): void {
-    this.app.use(morgan('dev'));
+    this.app.use(morgan(env.MORGAN_MODE));
   }
   public initializeControllers(): void {
     this.controllerTokens.forEach((token) => {
@@ -29,8 +30,8 @@ export class App {
     });
   }
   public listen(): void {
-    this.app.listen(3000, () => {
-      console.log('server is listening on port 3000');
+    this.app.listen(env.PORT, () => {
+      console.log(`server is listening on port ${env.PORT}`);
     });
   }
 }

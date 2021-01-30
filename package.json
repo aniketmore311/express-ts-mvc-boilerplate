@@ -7,7 +7,8 @@
     "start:dev": "nodemon src/server.ts",
     "start:prod": "tsc && node dist/server.js",
     "lint": "eslint . --ext .ts --fix",
-    "format": "prettier --config .prettierrc 'src/**/*.ts' --write"
+    "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
+    "lint-format":"npm run lint && npm run format"
   },
   "keywords": [],
   "author": "",
