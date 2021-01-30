@@ -6,6 +6,8 @@ const connectionOptions: ConnectionOptions = {
   username: 'root',
   password: 'password',
   database: 'testdb1',
+  logging: false,
+  synchronize: true,
   entities: ['src/models/entity/**/*.ts'],
   migrations: ['src/models/migration/**/*.ts'],
 };
