@@ -5,6 +5,7 @@ import { sqliteConnectionOptions } from './config/typeorm.config';
 import { createConnection } from 'typeorm';
 
 createConnection(sqliteConnectionOptions)
+  /*eslint-disable @typescript-eslint/no-unused-vars */
   .then((connection) => {
     const app = new App([TodoController]);
     app.listen();
