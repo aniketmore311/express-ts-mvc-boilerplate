@@ -1,6 +1,6 @@
 import { ConnectionOptions } from 'typeorm';
 import { env } from './env.config';
-export const msqlConnectionOptions: ConnectionOptions = {
+export const mysqlConnectionOptions: ConnectionOptions = {
   type: 'mysql',
   host: 'localhost',
   port: 3306,
