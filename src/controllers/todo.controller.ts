@@ -29,6 +29,6 @@ export class TodoController implements IBaseController {
   }
 
   public testHandler(req: Request, res: Response): void {
-    res.send('test response');
+    throw new Error('test error');
   }
 }

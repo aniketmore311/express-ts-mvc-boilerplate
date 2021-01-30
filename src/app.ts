@@ -57,7 +57,7 @@ export class App {
   }
 
   public initializeNotFound(): void {
-    this.app.use((req: Request, res: Response) => res.render('pages/404'));
+    this.app.use('*', (req: Request, res: Response) => res.render('pages/404'));
   }
 
   public initializeErrorHandler(): void {
