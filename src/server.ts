@@ -1,10 +1,10 @@
 import 'reflect-metadata';
 import { App } from './app';
 import { TodoController } from './controllers/todo.controller';
-import { connectionOptions } from './config/typeorm.config';
+import { sqliteConnectionOptions } from './config/typeorm.config';
 import { createConnection } from 'typeorm';
 
-createConnection(connectionOptions)
+createConnection(sqliteConnectionOptions)
   .then((connection) => {
     const app = new App([TodoController]);
     app.listen();
