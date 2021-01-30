@@ -25,6 +25,6 @@ export class TodoController implements IBaseController {
     this.router.get('/test', this.testHandler);
   }
   public testHandler(req: Request, res: Response): void {
-    res.json({ message: this.todoService.getMessage() });
+    res.render('home', {});
   }
 }

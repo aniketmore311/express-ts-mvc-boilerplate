@@ -1,5 +1,5 @@
 import { container, injectable, InjectionToken, singleton } from 'tsyringe';
-import { IBaseController, IUser } from './types/index';
+import { IBaseController } from './types/index';
 import session, { MemoryStore } from 'express-session';
 import { env } from './config/env.config';
 import express from 'express';
@@ -19,7 +19,12 @@ export class App {
   }
 
   public initializeMiddleware(): void {
+    this.app.use(express.urlencoded({ extended: false }));
     this.app.use(morgan(env.MORGAN_MODE));
+    this.app.set('views', `${env.ROOT_DIR}/src/views`);
+    this.app.set('view engine', 'ejs');
+    this.app.use(express.static(`${env.ROOT_DIR}/src/public`));
+    // setup sessions
     this.app.use(
       session({
         cookie: {
