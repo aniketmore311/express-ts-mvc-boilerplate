@@ -6,5 +6,7 @@ const connectionOptions: ConnectionOptions = {
   username: 'root',
   password: 'password',
   database: 'testdb1',
+  entities: ['src/models/entity/**/*.ts'],
+  migrations: ['src/models/migration/**/*.ts'],
 };
 export { connectionOptions };
