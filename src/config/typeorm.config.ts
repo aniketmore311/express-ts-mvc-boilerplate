@@ -8,7 +8,7 @@ export const msqlConnectionOptions: ConnectionOptions = {
   password: 'password',
   database: 'testdb1',
   logging: false,
-  synchronize: true,
+  synchronize: env.NODE_ENV == 'production' ? false : true,
   entities: [`${env.ROOT_DIR}/src/models/entity/**/*.ts`],
   migrations: [`${env.ROOT_DIR}/src/models/migration/**/*.ts`],
 };
