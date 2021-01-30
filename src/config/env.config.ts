@@ -4,5 +4,6 @@ export const env = {
   NODE_ENV: process.env.NODE_ENV || 'development',
   MORGAN_MODE: process.env.NODE_ENV === 'production' ? 'combined' : 'dev',
   ROOT_DIR: path.join(__dirname + '/../..'),
+  SESS_KEY: process.env.SESS_KEY || 'secretkey',
 };
 console.log('root: ' + env.ROOT_DIR);

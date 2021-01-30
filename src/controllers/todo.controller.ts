@@ -1,6 +1,6 @@
 import { Handler, Router, Request, Response } from 'express';
 import { injectable, singleton } from 'tsyringe';
-import { IBaseController } from '../types/BaseController.interface';
+import { IBaseController } from '../types/controllers/basecontroller.interface';
 import { TodoService } from '../services/todo.service';
 
 @injectable()
