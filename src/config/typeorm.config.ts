@@ -8,7 +8,7 @@ export const mysqlConnectionOptions: ConnectionOptions = {
   password: 'password',
   database: 'testdb1',
   logging: false,
-  synchronize: env.NODE_ENV == 'production' ? false : true,
+  synchronize: env.NODE_ENV === 'production' ? false : true,
   entities: [`${env.ROOT_DIR}/src/models/entity/**/*.ts`],
   migrations: [`${env.ROOT_DIR}/src/models/migration/**/*.ts`],
 };
