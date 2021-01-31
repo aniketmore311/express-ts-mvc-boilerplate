@@ -7,5 +7,6 @@ export const env = {
   MORGAN_MODE: process.env.NODE_ENV === 'production' ? 'combined' : 'dev',
   ROOT_DIR: path.join(__dirname + '/../..'),
   SESS_KEY: process.env.SESS_KEY || 'secretkey',
+  COOKIE_KEY: process.env.COOKIE_KEy || 'cookie-key',
   SALT_ROUNDS: Number(process.env.SALT_ROUNDS) || 10,
 };

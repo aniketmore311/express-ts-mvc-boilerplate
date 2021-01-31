@@ -3,6 +3,8 @@ import { IBaseController } from './types/index';
 import session, { MemoryStore } from 'express-session';
 import { env } from './config/env.config';
 import express from 'express';
+import cookieParser from 'cookie-parser';
+import flash from 'connect-flash';
 import { Request, Response } from 'express';
 import morgan from 'morgan';
 import { logError, errorTransformer, SiteErrorHandler } from './middleware';
@@ -24,10 +26,7 @@ export class App {
 
   public initializeMiddleware(): void {
     this.app.use(express.urlencoded({ extended: false }));
-    this.app.use(morgan(env.MORGAN_MODE));
-    this.app.set('views', `${env.ROOT_DIR}/src/views`);
-    this.app.set('view engine', 'ejs');
-    this.app.use(express.static(`${env.ROOT_DIR}/src/public`));
+    this.app.use(cookieParser(env.COOKIE_KEY));
     // setup sessions
     this.app.use(
       session({
@@ -42,6 +41,11 @@ export class App {
         saveUninitialized: false,
       })
     );
+    this.app.use(flash());
+    this.app.use(morgan(env.MORGAN_MODE));
+    this.app.set('views', `${env.ROOT_DIR}/src/views`);
+    this.app.set('view engine', 'ejs');
+    this.app.use(express.static(`${env.ROOT_DIR}/src/public`));
   }
 
   public initializeControllers(): void {
@@ -57,7 +61,7 @@ export class App {
   }
 
   public initializeNotFound(): void {
-    this.app.use('*', (req: Request, res: Response) => res.render('pages/404'));
+    this.app.use((req: Request, res: Response) => res.render('pages/404'));
   }
 
   public initializeErrorHandler(): void {
