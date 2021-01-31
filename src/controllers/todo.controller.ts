@@ -2,6 +2,7 @@ import { Handler, Router, Request, Response } from 'express';
 import { injectable, singleton } from 'tsyringe';
 import { IBaseController } from '../types/controllers/basecontroller.interface';
 import { TodoService } from '../services/todo.service';
+import { SiteError } from '../util';
 
 @injectable()
 @singleton()
@@ -29,6 +30,6 @@ export class TodoController implements IBaseController {
   }
 
   public testHandler(req: Request, res: Response): void {
-    throw new Error('test error');
+    throw new SiteError(500, 'test error');
   }
 }

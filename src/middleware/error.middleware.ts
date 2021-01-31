@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction, Handler } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { SiteError } from '../util';
 
 /**
@@ -11,8 +11,9 @@ export function logError(
   res: Response,
   next: NextFunction
 ): void {
+  console.debug('inside logger');
   console.log(err.stack);
-  next();
+  next(err);
 }
 
 /**
@@ -26,6 +27,7 @@ export function errorTransformer(
   res: Response,
   next: NextFunction
 ): void {
+  console.debug('inside transformer');
   // if err is not Error but SiteError then send it to the next middleware
   if (err.statusCode) {
     next(err);
@@ -43,12 +45,12 @@ export function errorTransformer(
  * as per the statusCode
  */
 export function SiteErrorHandler(
-  err: SiteError,
+  err: any,
   req: Request,
   res: Response,
-  /* eslint-disable */
   next: NextFunction
 ): void {
+  console.debug('inside error handler');
   if (err.statusCode == 404) {
     res.status(err.statusCode).render('pages/404');
   } else if (err.statusCode == 500) {
