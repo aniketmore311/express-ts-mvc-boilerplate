@@ -30,6 +30,6 @@ export class TodoController implements IBaseController {
   }
 
   public testHandler(req: Request, res: Response): void {
-    throw new SiteError(500, 'test error');
+    throw new SiteError('test error', 404);
   }
 }

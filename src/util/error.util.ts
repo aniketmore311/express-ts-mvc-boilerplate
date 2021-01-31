@@ -6,8 +6,8 @@ export class SiteError extends Error {
   statusCode: number;
   constructor(
     // set the default values
-    statusCode = 500,
-    message = 'something went wrong'
+    message = 'something went wrong',
+    statusCode = 500
   ) {
     super(message);
     this.statusCode = statusCode;

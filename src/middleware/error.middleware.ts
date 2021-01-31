@@ -32,7 +32,7 @@ export function errorTransformer(
   if (err.statusCode) {
     next(err);
   } else {
-    const newError = new SiteError(500, err.message);
+    const newError = new SiteError(err.message, 500);
     newError.name = err.name;
     newError.stack = err.stack;
     next(newError);
