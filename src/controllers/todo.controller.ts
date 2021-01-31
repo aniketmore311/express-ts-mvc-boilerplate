@@ -23,13 +23,23 @@ export class TodoController implements IBaseController {
 
   public bindMethods(): void {
     this.testHandler = this.testHandler.bind(this);
+    this.homeHandler = this.homeHandler.bind(this);
   }
 
   public initializeRoutes(): void {
     this.router.get('/test', this.testHandler);
+    this.router.get('/home', this.homeHandler);
   }
 
   public testHandler(req: Request, res: Response): void {
-    throw new SiteError('test error', 404);
+    req.flash('errorMessages', 'test flash message');
+    res.redirect('/todo/home');
+  }
+
+  public homeHandler(req: Request, res: Response): void {
+    const context = {
+      errorMessages: req.flash('errorMessages'),
+    };
+    res.render('pages/home', context);
   }
 }
