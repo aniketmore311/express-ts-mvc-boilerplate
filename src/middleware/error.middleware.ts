@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { SiteError } from '../util';
+import { SiteError } from '../utils';
 
 /**
  * @description
