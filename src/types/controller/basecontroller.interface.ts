@@ -5,5 +5,6 @@ export interface IBaseController {
   router: Router;
   middlewareBefore: Handler[];
   middlewareAfter: Handler[];
+  bindHandlers(): void;
   initializeRoutes(): void;
 }
