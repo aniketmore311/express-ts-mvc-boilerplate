@@ -1,7 +1,6 @@
 import { singleton, injectable } from 'tsyringe';
 import { IBaseController } from '../types';
-import express from 'express';
-import { UserService } from '../services';
+import express, { Request, Response } from 'express';
 
 @injectable()
 @singleton()
@@ -11,7 +10,8 @@ export class UserController implements IBaseController {
   public middlewareAfter = [];
   public router = express.Router();
 
-  constructor(public UserService: UserService) {
+  //   constructor(public UserService: UserService) {
+  constructor() {
     this.bindHandlers();
     this.initializeRoutes();
   }
@@ -32,13 +32,25 @@ export class UserController implements IBaseController {
     this.router.post('/logout', this.handleLogout);
   }
 
-  public renderRegister() {}
+  public renderRegister(req: Request, res: Response): void {
+    const context = {
+      errorMessages: [],
+      successMessages: [],
+    };
+    res.render('pages/register', context);
+  }
 
-  public handleRegister() {}
+  public handleRegister(req: Request, res: Response) {}
 
-  public renderLogin() {}
+  public renderLogin(req: Request, res: Response) {
+    const context = {
+      errorMessages: [],
+      successMessages: [],
+    };
+    res.render('pages/login', context);
+  }
 
-  public handleLogin() {}
+  public handleLogin(req: Request, res: Response) {}
 
-  public handleLogout() {}
+  public handleLogout(req: Request, res: Response) {}
 }

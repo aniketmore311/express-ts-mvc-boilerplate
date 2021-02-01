@@ -1,0 +1,9 @@
+<%- include('../partials/header',{pageTitle:'register',stylesheet:'/css/main.css'}) %> 
+<% if (errorMessages) { %>
+    <p><%= errorMessages %> </p>
+<% } %> 
+<% if (successMessages) { %>
+    <p><%= successMessages %> </p>
+<% } %> 
+<h1>register</h1>
+<%- include('../partials/footer') %> 
