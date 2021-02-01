@@ -14,8 +14,11 @@ export class SiteError extends Error {
   }
 }
 
-// wrap all async request handlers in your routes files with this function
-// to catch async errors and send them to error handling middleware
+/**
+ * @description
+ * wrap all async request handlers in your routes files with this function
+ * to catch async errors and send them to error handling middleware
+ */
 /* eslint-disable */
 export const catchAsync = (fn: any) => {
   // takes an async function and returns a handler that runs that function and catches errors
