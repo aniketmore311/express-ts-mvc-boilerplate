@@ -31,7 +31,7 @@ export class App {
     this.app.use(
       session({
         cookie: {
-          maxAge: 1 * 24 * 60 * 60 * 1000,
+          maxAge: 1 * 24 * 60 * 60 * 1000, // 1 day in ms
         },
         // usinng memory store here use redis or something in production
         store: new MemoryStore(),
