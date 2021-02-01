@@ -1,5 +1,5 @@
 export interface IUser {
-  id?: number;
+  id: number;
 
   uuid: string;
 
@@ -9,7 +9,7 @@ export interface IUser {
 
   email: string;
 
-  password?: string;
+  password: string;
 
   createdAt: Date;
 

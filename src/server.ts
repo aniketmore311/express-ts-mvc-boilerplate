@@ -5,7 +5,7 @@ import { sqliteConnectionOptions } from './config/typeorm.config';
 import { createConnection } from 'typeorm';
 import { IUser } from './types';
 
-// extending the express session
+// extending the express session to hold user
 declare module 'express-session' {
   interface SessionData {
     user: IUser;
