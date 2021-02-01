@@ -13,6 +13,7 @@ export const ensureAuth = (
     next();
   } else {
     // else dont allow and redirect to login
+    req.flash('errorMessages', ['login to continue']);
     res.redirect('/user/login');
   }
 };
