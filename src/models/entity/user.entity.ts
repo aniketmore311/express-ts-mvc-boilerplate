@@ -7,8 +7,10 @@ import {
   UpdateDateColumn,
   Generated,
 } from 'typeorm';
+import { IUser } from '../../types';
+
 @Entity({ name: 'users' })
-export class User extends BaseEntity {
+export class User extends BaseEntity implements IUser {
   @PrimaryGeneratedColumn()
   id!: number;
 
