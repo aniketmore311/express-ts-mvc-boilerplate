@@ -3,24 +3,29 @@ import { IUserService, IUserDTO } from '../types';
 import { User } from '../models/entity';
 import { Repository } from 'typeorm';
 import { userToDTO } from '../mappers/user.mapper';
+import { emit } from 'process';
+import { SiteError } from '../utils';
 
 @injectable()
 @singleton()
 export class UserService implements IUserService {
-  constructor(@inject('userRepo') public userRepo: Repository<User>) {
-    const user = userRepo.create();
-    user.firstName = 'aniket';
-    user.lastName = 'more';
-    user.email = 'email@gmail.com';
-    user.password = 'pass123';
-  }
+  constructor(@inject('userRepo') public userRepo: Repository<User>) {}
 
+  /**
+   * @async
+   * @description
+   * creates new user and returns it
+   */
   public async createUser(
     firstName: string,
     lastName: string,
     email: string,
     password: string
   ): Promise<IUserDTO> {
+    const existingUser = this.userRepo.findOne({ where: { email: email } });
+    if (existingUser) {
+      return Promise.reject(new SiteError('email already taken'));
+    }
     const user = this.userRepo.create();
     user.firstName = firstName;
     user.lastName = lastName;
