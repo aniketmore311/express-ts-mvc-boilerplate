@@ -1,9 +1,22 @@
 <%- include('../partials/header',{pageTitle:'login',stylesheet:'/css/main.css'}) %> 
-<% if (errorMessages) { %>
-    <p><%= errorMessages %> </p>
-<% } %> 
-<% if (successMessages) { %>
-    <p><%= successMessages %> </p>
-<% } %> 
+
 <h1>login</h1>
+
+<% errorMessages.forEach(message => { %>
+    <p><%= message %> </p>
+<% }) %>
+
+<% successMessages.forEach(message => { %>
+    <p><%= message %> </p>
+<% }) %>
+
+
+<form action="/user/login" method="POST">
+    <label for="email">email:</label>
+    <input type="text" name="email" id="email" required>
+    <label for="password">password:</label>
+    <input type="password" name="password" id="password" required>
+    <button type="submit">submit</button>
+</form>
+
 <%- include('../partials/footer') %> 

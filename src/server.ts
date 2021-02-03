@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+import './config/tsyringe.cofig';
 import { App } from './app';
 import { connectionOptions } from './config/typeorm.config';
 import { createConnection } from 'typeorm';

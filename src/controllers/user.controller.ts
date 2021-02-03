@@ -1,6 +1,8 @@
 import { singleton, injectable } from 'tsyringe';
 import { IBaseController } from '../types';
 import express, { Request, Response } from 'express';
+import { catchAsync } from '../utils/error.util';
+import { UserService } from '../services/user.service';
 
 @injectable()
 @singleton()
@@ -10,8 +12,7 @@ export class UserController implements IBaseController {
   public middlewareAfter = [];
   public router = express.Router();
 
-  //   constructor(public UserService: UserService) {
-  constructor() {
+  constructor(public userService: UserService) {
     this.bindHandlers();
     this.initializeRoutes();
   }
@@ -27,7 +28,7 @@ export class UserController implements IBaseController {
   public initializeRoutes(): void {
     this.router.get('/register', this.renderRegister);
     this.router.get('/login', this.renderLogin);
-    this.router.post('/register', this.handleRegister);
+    this.router.post('/register', catchAsync(this.handleRegister));
     this.router.post('/login', this.handleLogin);
     this.router.post('/logout', this.handleLogout);
   }
@@ -40,12 +41,23 @@ export class UserController implements IBaseController {
     res.render('pages/register', context);
   }
 
-  public handleRegister(req: Request, res: Response) {}
+  public async handleRegister(req: Request, res: Response): Promise<void> {
+    const { firstname, lastname, email, password } = req.body;
+    const newUser = await this.userService.createUser(
+      firstname,
+      lastname,
+      email,
+      password
+    );
+    console.log('new user: %o', newUser);
+    req.flash('successMessages', ['registration successful']);
+    res.redirect('/user/login');
+  }
 
   public renderLogin(req: Request, res: Response) {
     const context = {
       errorMessages: [],
-      successMessages: [],
+      successMessages: req.flash('successMessages'),
     };
     res.render('pages/login', context);
   }
