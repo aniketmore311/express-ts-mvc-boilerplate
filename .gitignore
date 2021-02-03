@@ -3,4 +3,4 @@ dist
 *.env
 *.rest
 *.db
--- SQLie.sql
+query.sql

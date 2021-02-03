@@ -1,9 +1,11 @@
 import { inject, injectable, singleton } from 'tsyringe';
+import bcrypt from 'bcrypt';
 import { IUserService, IUserDTO } from '../types';
 import { User } from '../models/entity';
 import { Repository } from 'typeorm';
 import { userToDTO } from '../mappers/user.mapper';
 import { SiteError } from '../utils';
+import { env } from '../config/env.config';
 
 @injectable()
 @singleton()
@@ -32,7 +34,7 @@ export class UserService implements IUserService {
     user.firstName = firstName;
     user.lastName = lastName;
     user.email = email;
-    user.password = password;
+    user.password = await bcrypt.hash(password, env.SALT_ROUNDS);
     await this.userRepo.save(user);
     const newUser = await this.userRepo.findOne({ where: { email: email } });
     if (!newUser) {
