@@ -35,8 +35,8 @@ export class UserController implements IBaseController {
 
   public renderRegister(req: Request, res: Response): void {
     const context = {
-      errorMessages: [],
-      successMessages: [],
+      errorMessages: req.flash('errorMessages'),
+      successMessages: req.flash('successMessages'),
     };
     res.render('pages/register', context);
   }
@@ -55,6 +55,7 @@ export class UserController implements IBaseController {
       res.redirect('/user/login');
     } catch (err) {
       if (err.statusCode) {
+        console.error(err);
         req.flash('errorMessages', [err.message]);
         res.redirect('/user/register');
       } else {
@@ -65,7 +66,7 @@ export class UserController implements IBaseController {
 
   public renderLogin(req: Request, res: Response) {
     const context = {
-      errorMessages: [],
+      errorMessages: req.flash('errorMessages'),
       successMessages: req.flash('successMessages'),
     };
     res.render('pages/login', context);

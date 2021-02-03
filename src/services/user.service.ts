@@ -3,7 +3,6 @@ import { IUserService, IUserDTO } from '../types';
 import { User } from '../models/entity';
 import { Repository } from 'typeorm';
 import { userToDTO } from '../mappers/user.mapper';
-import { emit } from 'process';
 import { SiteError } from '../utils';
 
 @injectable()
@@ -22,8 +21,11 @@ export class UserService implements IUserService {
     email: string,
     password: string
   ): Promise<IUserDTO> {
-    const existingUser = this.userRepo.findOne({ where: { email: email } });
+    const existingUser = await this.userRepo.findOne({
+      where: { email: email },
+    });
     if (existingUser) {
+      console.log('%o', existingUser);
       return Promise.reject(new SiteError('email already taken'));
     }
     const user = this.userRepo.create();
