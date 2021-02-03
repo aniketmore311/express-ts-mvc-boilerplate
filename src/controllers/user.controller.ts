@@ -64,7 +64,7 @@ export class UserController implements IBaseController {
     }
   }
 
-  public renderLogin(req: Request, res: Response) {
+  public renderLogin(req: Request, res: Response): void {
     const context = {
       errorMessages: req.flash('errorMessages'),
       successMessages: req.flash('successMessages'),
