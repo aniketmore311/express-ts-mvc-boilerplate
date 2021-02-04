@@ -3,6 +3,7 @@ import { IBaseController } from '../types';
 import express, { Request, Response } from 'express';
 import { catchAsync } from '../utils/error.util';
 import { UserService } from '../services/user.service';
+import { PassThrough } from 'stream';
 
 @injectable()
 @singleton()
@@ -84,9 +85,23 @@ export class UserController implements IBaseController {
     res.render('pages/login', context);
   }
 
-  public handleLogin(req: Request, res: Response) {
-    const { username, email } = req.body;
-    const user = this.userService.
+  public async handleLogin(req: Request, res: Response): Promise<void> {
+    const { username, password } = req.body;
+
+    try {
+      const user = await this.userService.isUserValid(username, password);
+      req.session.user = user;
+      req.flash('successMessages', ['login successful']);
+      res.redirect('/user/home');
+    } catch (err) {
+      if (err.statusCode) {
+        console.error(err);
+        req.flash('errorMessages', [err.message]);
+        res.redirect('/user/login');
+      } else {
+        throw err;
+      }
+    }
   }
 
   public handleLogout(req: Request, res: Response) {}

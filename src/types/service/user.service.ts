@@ -1,6 +1,6 @@
 import { IUserDTO } from '../index';
 export interface IUserService {
-  isUserValid: (email: string, password: string) => Promise<boolean>;
+  isUserValid: (email: string, password: string) => Promise<IUserDTO>;
   createUser: (
     username: string,
     firstName: string,

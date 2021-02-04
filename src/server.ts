@@ -3,13 +3,13 @@ import './config/tsyringe.cofig';
 import { App } from './app';
 import { connectionOptions } from './config/typeorm.config';
 import { createConnection } from 'typeorm';
-import { IUser } from './types';
+import { IUserDTO } from './types';
 import { UserController, HomeController } from './controllers/index';
 
 // extending the express session to hold user
 declare module 'express-session' {
   interface SessionData {
-    user: IUser;
+    user: IUserDTO;
   }
 }
 

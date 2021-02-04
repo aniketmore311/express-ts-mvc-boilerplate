@@ -45,7 +45,7 @@ export class UserService implements IUserService {
   public async isUserValid(
     username: string,
     password: string
-  ): Promise<boolean> {
+  ): Promise<IUserDTO> {
     const user = await this.userRepo.findOne({ where: { username: username } });
     if (!user) {
       return Promise.reject(new SiteError('invalid username'));
@@ -54,6 +54,6 @@ export class UserService implements IUserService {
     if (!result) {
       return Promise.reject(new SiteError('invalid password'));
     }
-    return Promise.resolve(true);
+    return Promise.resolve(userToDTO(user));
   }
 }

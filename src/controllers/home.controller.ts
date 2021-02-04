@@ -25,8 +25,9 @@ export class HomeController implements IBaseController {
 
   public renderHome(req: Request, res: Response): void {
     const context = {
-      errorMessages: [],
-      successMessages: [],
+      errorMessages: req.flash('errorMessages'),
+      successMessages: req.flash('successMessages'),
+      user: req.session.user,
     };
     res.render('pages/home', context);
   }
