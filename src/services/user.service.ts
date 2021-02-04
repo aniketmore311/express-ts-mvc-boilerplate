@@ -16,6 +16,8 @@ export class UserService implements IUserService {
    * @async
    * @description
    * creates new user and returns it
+   * @returns 
+   * a promise either resolved with a user or rejected with an error
    */
   public async createUser(
     username: string,
