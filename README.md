@@ -5,8 +5,8 @@
 - tsyringe for dependancy injection
 - express session for sessions
 - error handling
-- custom basic authentication\
-  \
+- custom basic authentication
+- \
 - clone the repo
 - cd into it then run
 - $ npm install
