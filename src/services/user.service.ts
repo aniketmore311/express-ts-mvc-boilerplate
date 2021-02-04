@@ -27,7 +27,7 @@ export class UserService implements IUserService {
       where: { username: username },
     });
     if (existingUser) {
-      console.log('existing user: %o', existingUser);
+      // console.log('existing user found: %o', existingUser);
       return Promise.reject(new SiteError('username already taken'));
     }
     const user = this.userRepo.create();
