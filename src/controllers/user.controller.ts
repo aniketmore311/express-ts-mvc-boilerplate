@@ -84,7 +84,10 @@ export class UserController implements IBaseController {
     res.render('pages/login', context);
   }
 
-  public handleLogin(req: Request, res: Response) {}
+  public handleLogin(req: Request, res: Response) {
+    const { username, email } = req.body;
+    const user = this.userService.
+  }
 
   public handleLogout(req: Request, res: Response) {}
 }

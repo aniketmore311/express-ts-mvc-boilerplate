@@ -16,7 +16,7 @@ export class UserService implements IUserService {
    * @async
    * @description
    * creates new user and returns it
-   * @returns 
+   * @returns
    * a promise either resolved with a user or rejected with an error
    */
   public async createUser(
@@ -40,5 +40,20 @@ export class UserService implements IUserService {
     await this.userRepo.save(user);
     console.log('created user %o', user);
     return Promise.resolve(userToDTO(user));
+  }
+
+  public async isUserValid(
+    username: string,
+    password: string
+  ): Promise<boolean> {
+    const user = await this.userRepo.findOne({ where: { username: username } });
+    if (!user) {
+      return Promise.reject(new SiteError('invalid username'));
+    }
+    const result = await bcrypt.compare(password, user.password);
+    if (!result) {
+      return Promise.reject(new SiteError('invalid password'));
+    }
+    return Promise.resolve(true);
   }
 }
