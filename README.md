@@ -5,11 +5,11 @@
 - tsyringe for dependancy injection
 - express session for sessions
 - error handling
-- custom basic authentication
-
+- custom basic authentication\
+  \
 - clone the repo
 - cd into it then run
 - $ npm install
 - $ cp .env.example .env
 - $ npm run start:dev
-- visit http://localhost:3000
+- visit http://localhost:3000/
