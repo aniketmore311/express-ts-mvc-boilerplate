@@ -2,10 +2,9 @@ import { container, injectable, InjectionToken, singleton } from 'tsyringe';
 import { IBaseController } from './types/index';
 import session, { MemoryStore } from 'express-session';
 import { env } from './config/env.config';
-import express from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import cookieParser from 'cookie-parser';
 import flash from 'connect-flash';
-import { Request, Response } from 'express';
 import morgan from 'morgan';
 import { logError, errorTransformer, SiteErrorHandler } from './middleware';
 
@@ -46,6 +45,14 @@ export class App {
     this.app.set('views', `${env.ROOT_DIR}/src/views`);
     this.app.set('view engine', 'ejs');
     this.app.use(express.static(`${env.ROOT_DIR}/src/public`));
+    // if root path ('/') is visited then redirect to '/home'
+    this.app.use((req: Request, res: Response, next: NextFunction): void => {
+      if (req.url === '/') {
+        res.redirect('/home');
+      } else {
+        next();
+      }
+    });
   }
 
   public initializeControllers(): void {

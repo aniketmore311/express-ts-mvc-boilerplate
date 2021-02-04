@@ -1,11 +1,12 @@
 import { singleton, injectable } from 'tsyringe';
 import { IBaseController } from '../types';
 import express, { Response, Request } from 'express';
+import { ensureAuth, ensureUnauth } from '../middleware/auth.middleware';
 
 @injectable()
 @singleton()
 export class HomeController implements IBaseController {
-  public path = '/home';
+  public path = '';
   public middlewareBefore = [];
   public middlewareAfter = [];
   public router = express.Router();
@@ -20,7 +21,7 @@ export class HomeController implements IBaseController {
   }
 
   public initializeRoutes(): void {
-    this.router.use(this.renderHome);
+    this.router.use('/home', ensureAuth, this.renderHome);
   }
 
   public renderHome(req: Request, res: Response): void {

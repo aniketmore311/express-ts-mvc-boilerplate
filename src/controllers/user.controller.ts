@@ -3,7 +3,7 @@ import { IBaseController } from '../types';
 import express, { Request, Response } from 'express';
 import { catchAsync } from '../utils/error.util';
 import { UserService } from '../services/user.service';
-import { PassThrough } from 'stream';
+import { ensureAuth, ensureUnauth } from '../middleware/auth.middleware';
 
 @injectable()
 @singleton()
@@ -27,11 +27,15 @@ export class UserController implements IBaseController {
   }
 
   public initializeRoutes(): void {
-    this.router.get('/register', this.renderRegister);
-    this.router.get('/login', this.renderLogin);
-    this.router.post('/register', catchAsync(this.handleRegister));
-    this.router.post('/login', this.handleLogin);
-    this.router.post('/logout', this.handleLogout);
+    this.router.get('/register', ensureUnauth, this.renderRegister);
+    this.router.get('/login', ensureUnauth, this.renderLogin);
+    this.router.post(
+      '/register',
+      ensureUnauth,
+      catchAsync(this.handleRegister)
+    );
+    this.router.post('/login', ensureUnauth, catchAsync(this.handleLogin));
+    this.router.post('/logout', ensureAuth, this.handleLogout);
   }
 
   public renderRegister(req: Request, res: Response): void {
@@ -92,7 +96,7 @@ export class UserController implements IBaseController {
       const user = await this.userService.isUserValid(username, password);
       req.session.user = user;
       req.flash('successMessages', ['login successful']);
-      res.redirect('/user/home');
+      res.redirect('/home');
     } catch (err) {
       if (err.statusCode) {
         console.error(err);
@@ -104,5 +108,9 @@ export class UserController implements IBaseController {
     }
   }
 
-  public handleLogout(req: Request, res: Response) {}
+  public handleLogout(req: Request, res: Response): void {
+    req.session.user = undefined;
+    req.flash('successMessages', ['logout successful']);
+    res.redirect('/user/login');
+  }
 }
