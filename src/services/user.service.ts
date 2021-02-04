@@ -18,28 +18,25 @@ export class UserService implements IUserService {
    * creates new user and returns it
    */
   public async createUser(
+    username: string,
     firstName: string,
     lastName: string,
-    email: string,
     password: string
   ): Promise<IUserDTO> {
     const existingUser = await this.userRepo.findOne({
-      where: { email: email },
+      where: { username: username },
     });
     if (existingUser) {
-      console.log('%o', existingUser);
-      return Promise.reject(new SiteError('email already taken'));
+      console.log('existing user: %o', existingUser);
+      return Promise.reject(new SiteError('username already taken'));
     }
     const user = this.userRepo.create();
+    user.username = username;
     user.firstName = firstName;
     user.lastName = lastName;
-    user.email = email;
     user.password = await bcrypt.hash(password, env.SALT_ROUNDS);
     await this.userRepo.save(user);
-    const newUser = await this.userRepo.findOne({ where: { email: email } });
-    if (!newUser) {
-      throw new Error('user not found');
-    }
-    return Promise.resolve(userToDTO(newUser));
+    console.log('created user %o', user);
+    return Promise.resolve(userToDTO(user));
   }
 }

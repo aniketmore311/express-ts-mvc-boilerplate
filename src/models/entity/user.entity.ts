@@ -18,14 +18,14 @@ export class User extends BaseEntity implements IUser {
   @Generated('uuid')
   uuid!: string;
 
+  @Column({ unique: true })
+  username!: string;
+
   @Column({ name: 'first_name' })
   firstName!: string;
 
   @Column({ name: 'last_name' })
   lastName!: string;
-
-  @Column({ unique: true })
-  email!: string;
 
   @Column()
   password!: string;

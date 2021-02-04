@@ -42,12 +42,24 @@ export class UserController implements IBaseController {
   }
 
   public async handleRegister(req: Request, res: Response): Promise<void> {
-    const { firstname, lastname, email, password } = req.body;
+    const {
+      username,
+      firstname,
+      lastname,
+      password,
+      confirmpassword,
+    } = req.body;
+
+    if (password !== confirmpassword) {
+      req.flash('errorMessages', ['passwords do not match']);
+      return res.redirect('/user/register');
+    }
+
     try {
       const newUser = await this.userService.createUser(
+        username,
         firstname,
         lastname,
-        email,
         password
       );
       console.log('new user: %o', newUser);

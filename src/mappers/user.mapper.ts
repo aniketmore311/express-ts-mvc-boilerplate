@@ -5,7 +5,7 @@ export function userToDTO(user: IUser): IUserDTO {
     uuid: user.uuid,
     firstName: user.firstName,
     lastName: user.lastName,
-    email: user.email,
+    username: user.username,
   };
   return userDTO;
 }

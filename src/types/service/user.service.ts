@@ -2,9 +2,9 @@ import { IUserDTO } from '../index';
 export interface IUserService {
   isUserValid?: (email: string, password: string) => Promise<boolean>;
   createUser?: (
+    username: string,
     firstName: string,
     lastName: string,
-    email: string,
     password: string
   ) => Promise<IUserDTO>;
   deleteUser?: (email: string, password: string) => Promise<IUserDTO>;
