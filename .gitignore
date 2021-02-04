@@ -4,3 +4,4 @@ dist
 *.rest
 *.db
 query.sql
+*.todo
