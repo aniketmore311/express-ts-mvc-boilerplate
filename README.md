@@ -7,6 +7,7 @@
 - error handling
 - custom basic authentication
 
-- clone the repo cd into it then
+- clone the repo
+- cd into it then run
 - $ npm install
 - $ npm run start:dev
