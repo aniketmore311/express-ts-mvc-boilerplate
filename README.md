@@ -6,10 +6,11 @@
 - express session for sessions
 - error handling
 - custom basic authentication
-- \
-- clone the repo
-- cd into it then run
-- $ npm install
-- $ cp .env.example .env
-- $ npm run start:dev
-- visit http://localhost:3000/
+
+- to use
+  - clone the repo
+  - cd into it then run
+  - $ npm install
+  - $ cp .env.example .env
+  - $ npm run start:dev
+  - visit http://localhost:3000/
