@@ -5,7 +5,6 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  Generated,
 } from 'typeorm';
 import { IUser } from '../../types';
 
@@ -13,10 +12,6 @@ import { IUser } from '../../types';
 export class User extends BaseEntity implements IUser {
   @PrimaryGeneratedColumn()
   id!: number;
-
-  @Column()
-  @Generated('uuid')
-  uuid!: string;
 
   @Column({ unique: true })
   username!: string;

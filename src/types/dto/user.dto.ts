@@ -1,5 +1,4 @@
 export interface IUserDTO {
-  uuid: string;
 
   username: string;
 
