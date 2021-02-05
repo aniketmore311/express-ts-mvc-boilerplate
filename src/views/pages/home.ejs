@@ -1,13 +1,18 @@
 <%- include('../partials/header',{pageTitle:'home',stylesheet:'/css/main.css'}) %> 
-<% if (errorMessages) { %>
-    <p><%= errorMessages %> </p>
-<% } %> 
-<% if (successMessages) { %>
-    <p><%= successMessages %> </p>
-<% } %> 
+
+<% errorMessages.forEach(message => { %>
+    <p><%= message %> </p>
+<% }) %>
+
+<% successMessages.forEach(message => { %>
+    <p><%= message %> </p>
+<% }) %>
+
 <h1>home</h1>
 <p>hello <%= user.firstName %> </p>
+
 <form action="/user/logout" method="POST">
     <button type="submit">logout</button>
 </form>
+
 <%- include('../partials/footer',{scripts:[]}) %> 
