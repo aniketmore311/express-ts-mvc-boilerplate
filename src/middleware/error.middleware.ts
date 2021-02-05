@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import { env } from '../config/env.config';
 import { SiteError } from '../utils';
 
 /**
@@ -27,7 +28,6 @@ export function errorTransformer(
   res: Response,
   next: NextFunction
 ): void {
-  console.debug('inside transformer');
   // if err is not Error but SiteError then send it to the next middleware
   if (err.statusCode) {
     next(err);
@@ -50,10 +50,12 @@ export function SiteErrorHandler(
   res: Response,
   next: NextFunction
 ): void {
-  console.debug('inside error handler');
+  if (env.NODE_ENV === 'development') {
+    return res.render('pages/errordebug', { err: err });
+  }
   if (err.statusCode == 404) {
-    res.status(err.statusCode).render('pages/404');
+    return res.status(err.statusCode).render('pages/404');
   } else if (err.statusCode == 500) {
-    res.status(err.statusCode).render('pages/500');
+    return res.status(err.statusCode).render('pages/500');
   }
 }
