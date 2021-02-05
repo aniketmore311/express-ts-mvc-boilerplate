@@ -1,10 +1,11 @@
 import { singleton, injectable } from 'tsyringe';
 import { IBaseController } from '../types';
 import express, { Request, Response } from 'express';
-import { Signer } from 'crypto';
 import { SiteError } from '../utils';
 import { env } from '../config/env.config';
 
+@singleton()
+@injectable()
 export class TestController implements IBaseController {
   public path = '/test';
   public middlewareBefore = [];
